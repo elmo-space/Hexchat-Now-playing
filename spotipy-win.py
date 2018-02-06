@@ -25,23 +25,14 @@ def get_win_title():
 	return win_title
 
 
-def get_song():
-	artist = ""
-	title = ""
-
-	try:
-		win_title = get_win_title()
-		artist,title = win_title.split(" - ", 1)
-	except Exception as err:
-		hexchat.prnt("Error: %s" % (err))
-
-	return artist, title
-
-
 def spotify(word, wordeol, userdata):
 	try:
-		artist, title = get_song()
-		hexchat.command("say %s♫ %sNow playing:%s %s %s-%s %s %s♫" % (red, blue, yellow, artist, blue, green, title, red))
+		win_title = get_win_title()
+		if win_title.startswith("Spotify"):
+			raise Exception("Nothing playing...")
+		else:
+			artist,title = win_title.split(" - ", 1)
+			hexchat.command("say %s♫ %sNow playing:%s %s %s-%s %s %s♫" % (red, blue, yellow, artist, blue, green, title, red))
 	except Exception as err:
 		hexchat.prnt("Error: %s" % (err))
 
